@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProReply - Privacy Policy</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: #f3f4f6;
+        color: #1f2937;
+        line-height: 1.6;
+        padding: 24px;
+      }
+      .container {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+      .card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 28px;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        font-size: 24px;
+        font-weight: 800;
+        margin-bottom: 8px;
+        color: #1f2937;
+      }
+      .subtitle {
+        color: #6b7280;
+        font-size: 15px;
+        margin-bottom: 24px;
+      }
+      h2 {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 24px 0 12px;
+        color: #1f2937;
+      }
+      p {
+        margin-bottom: 12px;
+        font-size: 15px;
+        color: #4b5563;
+      }
+      ul {
+        margin-left: 20px;
+        margin-bottom: 16px;
+      }
+      li {
+        margin-bottom: 8px;
+        font-size: 15px;
+        color: #4b5563;
+      }
+      .highlight {
+        background: #eff6ff;
+        border-left: 4px solid #4a90e2;
+        padding: 16px;
+        border-radius: 0 8px 8px 0;
+        margin: 16px 0;
+        font-size: 15px;
+        color: #1e40af;
+      }
+      code {
+        background: #f3f4f6;
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-family: "SF Mono", Monaco, monospace;
+      }
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        background: #4a90e2;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        margin-top: 8px;
+        transition: background 0.2s;
+      }
+      .back-btn:hover {
+        background: #357abd;
+      }
+      .footer {
+        text-align: center;
+        padding: 20px;
+        color: #9ca3af;
+        font-size: 13px;
+      }
+    </style>
+    <base target="_blank" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h1>Privacy Policy</h1>
+        <p class="subtitle">Last updated: May 2026</p>
+
+        <div class="highlight">
+          <strong>Short version:</strong> ProReply stores everything locally on
+          your computer. We do not collect, sell, or share your WhatsApp
+          messages, contacts, or business data. Your data is yours.
+        </div>
+
+        <h2>What Data We Store</h2>
+        <p>
+          All data is stored locally in your browser using
+          <code>chrome.storage.local</code>. We never send your message content
+          to our servers.
+        </p>
+        <ul>
+          <li>
+            <strong>Business Profile:</strong> Your business name, email, and
+            phone number (used for signatures)
+          </li>
+          <li>
+            <strong>Message Templates:</strong> The text content of templates
+            you create
+          </li>
+          <li>
+            <strong>Automation Rules:</strong> Keywords, match types, and
+            template associations
+          </li>
+          <li>
+            <strong>Usage Counters:</strong> Daily message count to enforce free
+            plan limits
+          </li>
+          <li>
+            <strong>Settings:</strong> Your preferences (notifications,
+            auto-start, etc.)
+          </li>
+        </ul>
+
+        <h2>What We Do NOT Store</h2>
+        <ul>
+          <li>Your WhatsApp messages or chat history</li>
+          <li>Your contacts or contact list</li>
+          <li>Photos, videos, or media from WhatsApp</li>
+          <li>Your WhatsApp login credentials</li>
+          <li>Any data from websites other than WhatsApp Web</li>
+        </ul>
+
+        <h2>How Auto-Reply Works</h2>
+        <p>ProReply runs entirely in your browser:</p>
+        <ul>
+          <li>
+            It reads incoming messages from the WhatsApp Web page you have open
+          </li>
+          <li>It checks if the message matches any of your rules</li>
+          <li>
+            If matched, it types and sends your template response automatically
+          </li>
+          <li>
+            All processing happens on your computer — nothing is sent to
+            external servers
+          </li>
+        </ul>
+
+        <h2>Payment Data (Pro Plan)</h2>
+        <p>
+          When you upgrade to Pro, payment is handled by
+          <strong>Flutterwave</strong>, a secure payment processor. We do not
+          store your card details, bank information, or payment passwords.
+        </p>
+        <ul>
+          <li>We only receive confirmation that payment was successful</li>
+          <li>
+            Your payment information is encrypted and processed by Flutterwave
+          </li>
+          <li>
+            We store only your plan status ("pro" or "free") and expiry date
+            locally
+          </li>
+        </ul>
+
+        <h2>Data Export & Import</h2>
+        <p>
+          The <strong>Backup Data</strong> feature creates a JSON file on your
+          computer containing your templates, rules, and settings. This file:
+        </p>
+        <ul>
+          <li>Never leaves your computer unless you manually share it</li>
+          <li>Does not include your Pro plan status (for security)</li>
+          <li>Can be deleted by you at any time</li>
+        </ul>
+
+        <h2>Cookies & Tracking</h2>
+        <p>
+          ProReply does not use cookies, analytics, or tracking pixels. We do
+          not know how many messages you send, who you talk to, or what your
+          templates say.
+        </p>
+
+        <h2>Third-Party Services</h2>
+        <p>We only connect to:</p>
+        <ul>
+          <li>
+            <strong>Flutterwave</strong> — for payment processing (only when you
+            click "Pay with Flutterwave")
+          </li>
+          <li>
+            <strong>WhatsApp Web</strong> — to read and send messages (only when
+            you have the tab open)
+          </li>
+        </ul>
+
+        <h2>Your Rights</h2>
+        <p>You can:</p>
+        <ul>
+          <li>
+            Delete all data instantly using the
+            <strong>Clear All Data</strong> button in Settings
+          </li>
+          <li>
+            Uninstall the extension at any time — all data is automatically
+            removed
+          </li>
+          <li>Export your data before uninstalling using the Backup feature</li>
+          <li>
+            Contact us with privacy questions (see Chrome Web Store listing)
+          </li>
+        </ul>
+
+        <h2>Changes to This Policy</h2>
+        <p>
+          If we make changes to this privacy policy, we will update this page
+          and notify you through the extension. We will never reduce your
+          privacy rights without clear notice.
+        </p>
+
+        <button class="back-btn" id="closeBtn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path
+              d="M10 12L6 8L10 4"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          Close Privacy Policy
+        </button>
+      </div>
+
+      <div class="footer">ProReply v1.0.0 — Your privacy is our priority</div>
+    </div>
+
+    <script>
+      document
+        .getElementById("closeBtn")
+        .addEventListener("click", function () {
+          window.close();
+        });
+    </script>
+  </body>
+</html>

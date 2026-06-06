@@ -1,0 +1,1009 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ProReply</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        width: 400px;
+        min-height: 560px;
+        max-height: 600px;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 13px;
+        color: #1f2937;
+        background: #f0f4ff;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      /* ── TOPBAR ── */
+      .topbar {
+        background: #fff;
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #e8eeff;
+        flex-shrink: 0;
+        box-shadow: 0 1px 4px rgba(74, 120, 226, 0.06);
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .logo-icon {
+        width: 30px;
+        height: 30px;
+        background: linear-gradient(135deg, #4a78e2, #2563eb);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .logo-icon svg {
+        width: 18px;
+        height: 18px;
+        fill: #fff;
+      }
+      .logo-text {
+        font-size: 16px;
+        font-weight: 800;
+        color: #1f2937;
+        letter-spacing: -0.3px;
+      }
+      .logo-text span {
+        color: #2563eb;
+      }
+      .status-pill {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .status-pill.on {
+        background: #ecfdf5;
+        color: #059669;
+        border: 1px solid #a7f3d0;
+      }
+      .status-pill.off {
+        background: #f3f4f6;
+        color: #6b7280;
+        border: 1px solid #e5e7eb;
+      }
+      .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #9ca3af;
+      }
+      .dot.on {
+        background: #10b981;
+        box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+      }
+
+      /* ── LAYOUT ── */
+      .layout {
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+      }
+
+      /* ── SIDEBAR ── */
+      .sidebar {
+        width: 115px;
+        background: #fff;
+        border-right: 1px solid #e8eeff;
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        padding: 8px 0;
+      }
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        padding: 10px 8px;
+        cursor: pointer;
+        border-radius: 0;
+        font-size: 10px;
+        font-weight: 600;
+        color: #6b7280;
+        transition: all 0.2s;
+        border-left: 3px solid transparent;
+        margin: 1px 0;
+      }
+      .nav-item:hover {
+        background: #f0f4ff;
+        color: #2563eb;
+      }
+      .nav-item.active {
+        background: #eef2ff;
+        color: #2563eb;
+        border-left: 3px solid #2563eb;
+      }
+      .nav-item .nav-icon {
+        font-size: 18px;
+        line-height: 1;
+      }
+      .nav-item .nav-label {
+        text-align: center;
+        line-height: 1.2;
+      }
+
+      /* ── MAIN ── */
+      .main {
+        flex: 1;
+        overflow-y: auto;
+        background: #f0f4ff;
+      }
+
+      /* ── PANELS ── */
+      .panel {
+        display: none;
+        padding: 12px;
+      }
+      .panel.active {
+        display: block;
+      }
+
+      /* ── DASHBOARD STATS ── */
+      .dash-title {
+        font-size: 16px;
+        font-weight: 800;
+        color: #1f2937;
+        margin-bottom: 12px;
+      }
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+      .stat-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 12px 10px;
+        text-align: center;
+        border: 1px solid #e8eeff;
+        box-shadow: 0 1px 4px rgba(74, 120, 226, 0.06);
+      }
+      .stat-card .stat-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 6px;
+        font-size: 16px;
+      }
+      .stat-card .stat-icon.blue {
+        background: #eef2ff;
+      }
+      .stat-card .stat-icon.green {
+        background: #ecfdf5;
+      }
+      .stat-card .stat-icon.purple {
+        background: #f5f3ff;
+      }
+      .stat-card .stat-num {
+        font-size: 20px;
+        font-weight: 800;
+        color: #1f2937;
+        line-height: 1;
+      }
+      .stat-card .stat-lbl {
+        font-size: 10px;
+        color: #6b7280;
+        margin-top: 3px;
+        font-weight: 500;
+      }
+      .stat-card .stat-sub {
+        font-size: 10px;
+        font-weight: 700;
+        margin-top: 2px;
+      }
+      .stat-card .stat-sub.active {
+        color: #059669;
+      }
+      .stat-card .stat-sub.total {
+        color: #6b7280;
+      }
+      .stat-card .stat-sub.today {
+        color: #7c3aed;
+      }
+
+      /* ── TOGGLE ROW ── */
+      .toggle-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 12px 14px;
+        margin-bottom: 10px;
+        border: 1px solid #e8eeff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 1px 4px rgba(74, 120, 226, 0.06);
+      }
+      .toggle-left .tl-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: #1f2937;
+      }
+      .toggle-left .tl-sub {
+        font-size: 11px;
+        color: #9ca3af;
+        margin-top: 1px;
+      }
+      .switch {
+        position: relative;
+        width: 44px;
+        height: 24px;
+        flex-shrink: 0;
+      }
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .knob {
+        position: absolute;
+        inset: 0;
+        background: #e5e7eb;
+        border-radius: 24px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .knob:before {
+        content: "";
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        left: 3px;
+        bottom: 3px;
+        background: #fff;
+        border-radius: 50%;
+        transition: 0.3s;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      }
+      input:checked + .knob {
+        background: #2563eb;
+      }
+      input:checked + .knob:before {
+        transform: translateX(20px);
+      }
+
+      /* ── PLAN CARD ── */
+      .plan-card {
+        background: linear-gradient(135deg, #2563eb, #4f46e5);
+        border-radius: 12px;
+        padding: 12px 14px;
+        margin-bottom: 10px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .plan-left .pl-badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        margin-bottom: 4px;
+      }
+      .plan-left .pl-count {
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .plan-left .pl-label {
+        font-size: 10px;
+        opacity: 0.8;
+        margin-top: 1px;
+      }
+      .upgrade-btn {
+        padding: 6px 12px;
+        background: #fff;
+        color: #2563eb;
+        border: none;
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 800;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .upgrade-btn:hover {
+        background: #eef2ff;
+      }
+
+      /* ── RECENT ACTIVITY ── */
+      .section-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: #374151;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+      }
+      .activity-list {
+        background: #fff;
+        border-radius: 12px;
+        border: 1px solid #e8eeff;
+        overflow: hidden;
+        box-shadow: 0 1px 4px rgba(74, 120, 226, 0.06);
+      }
+      .activity-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-bottom: 1px solid #f3f4f6;
+      }
+      .activity-item:last-child {
+        border-bottom: none;
+      }
+      .activity-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 700;
+        color: #fff;
+        flex-shrink: 0;
+      }
+      .activity-body {
+        flex: 1;
+        min-width: 0;
+      }
+      .activity-title {
+        font-size: 12px;
+        font-weight: 600;
+        color: #1f2937;
+      }
+      .activity-desc {
+        font-size: 11px;
+        color: #6b7280;
+        margin-top: 1px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .activity-meta {
+        text-align: right;
+        flex-shrink: 0;
+      }
+      .activity-time {
+        font-size: 10px;
+        color: #9ca3af;
+      }
+      .activity-check {
+        color: #10b981;
+        font-size: 14px;
+        display: block;
+        margin-top: 1px;
+        text-align: right;
+      }
+      .no-activity {
+        text-align: center;
+        color: #9ca3af;
+        font-size: 12px;
+        padding: 20px;
+      }
+
+      /* ── CARDS ── */
+      .card {
+        background: #fff;
+        border: 1px solid #e8eeff;
+        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 10px;
+        box-shadow: 0 1px 4px rgba(74, 120, 226, 0.06);
+      }
+      .card-title {
+        font-size: 11px;
+        font-weight: 800;
+        color: #374151;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      /* ── FORMS ── */
+      label {
+        display: block;
+        font-size: 11px;
+        font-weight: 600;
+        color: #4b5563;
+        margin-bottom: 3px;
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      textarea,
+      select {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1.5px solid #e5e7eb;
+        border-radius: 8px;
+        font-size: 12px;
+        font-family: inherit;
+        color: #1f2937;
+        outline: none;
+        margin-bottom: 8px;
+        background: #fafafa;
+        transition: border-color 0.2s;
+      }
+      input:focus,
+      textarea:focus,
+      select:focus {
+        border-color: #2563eb;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+      }
+      textarea {
+        resize: vertical;
+        min-height: 70px;
+      }
+      .hint {
+        font-size: 10px;
+        color: #9ca3af;
+        margin-top: -6px;
+        margin-bottom: 8px;
+      }
+
+      /* ── BUTTONS ── */
+      .btn {
+        width: 100%;
+        padding: 9px;
+        border: none;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .btn-primary {
+        background: #2563eb;
+        color: #fff;
+      }
+      .btn-primary:hover {
+        background: #1d4ed8;
+      }
+      .btn-secondary {
+        background: #f3f4f6;
+        color: #374151;
+        border: 1px solid #e5e7eb;
+      }
+      .btn-secondary:hover {
+        background: #e5e7eb;
+      }
+      .btn-row {
+        display: flex;
+        gap: 8px;
+      }
+      .btn-row .btn {
+        flex: 1;
+      }
+
+      /* ── ITEMS ── */
+      .item {
+        background: #f8faff;
+        border: 1px solid #e8eeff;
+        border-radius: 10px;
+        padding: 10px 12px;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 8px;
+      }
+      .item-body {
+        flex: 1;
+        min-width: 0;
+      }
+      .item-name {
+        font-weight: 700;
+        font-size: 12px;
+        color: #1f2937;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .item-preview {
+        font-size: 11px;
+        color: #6b7280;
+        margin-top: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .item-badge {
+        display: inline-block;
+        padding: 1px 6px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: 600;
+        background: #eef2ff;
+        color: #2563eb;
+        margin-top: 3px;
+      }
+      .del-btn {
+        background: none;
+        border: none;
+        color: #9ca3af;
+        cursor: pointer;
+        font-size: 18px;
+        line-height: 1;
+        flex-shrink: 0;
+        padding: 0 2px;
+        transition: color 0.15s;
+      }
+      .del-btn:hover {
+        color: #ef4444;
+      }
+      .empty {
+        text-align: center;
+        color: #9ca3af;
+        font-size: 12px;
+        padding: 18px;
+        border: 1.5px dashed #e5e7eb;
+        border-radius: 10px;
+      }
+
+      /* ── INFO BOX ── */
+      .info-box {
+        background: #eef2ff;
+        border: 1px solid #c7d2fe;
+        border-radius: 10px;
+        padding: 10px 12px;
+        font-size: 11px;
+        color: #3730a3;
+        line-height: 1.6;
+      }
+      .info-box strong {
+        color: #1e40af;
+      }
+
+      /* ── FOOTER ── */
+      .ftr {
+        flex-shrink: 0;
+        border-top: 1px solid #e8eeff;
+        background: #fff;
+        padding: 6px 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-size: 10px;
+        color: #9ca3af;
+      }
+      .ftr a {
+        color: #6b7280;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .ftr a:hover {
+        color: #2563eb;
+      }
+
+      /* ── TOAST ── */
+      #toast {
+        position: fixed;
+        bottom: 44px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 7px 16px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #fff;
+        z-index: 9999;
+        display: none;
+        white-space: nowrap;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      /* ── SCROLLBAR ── */
+      .main::-webkit-scrollbar {
+        width: 4px;
+      }
+      .main::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .main::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 2.98.97 4.29L2 22l5.71-.97C9.02 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.38 0-2.69-.28-3.88-.77l-.28-.12-2.89.49.49-2.89-.12-.28C4.28 14.69 4 13.38 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"
+            />
+            <path d="M9 11h2v2H9zm4 0h2v2h-2z" />
+          </svg>
+        </div>
+        <span class="logo-text">Pro<span>Reply</span></span>
+      </div>
+      <div class="status-pill off" id="status-pill">
+        <span class="dot" id="dot"></span>
+        <span id="status-text">Paused</span>
+      </div>
+    </div>
+
+    <!-- LAYOUT -->
+    <div class="layout">
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <div class="nav-item active" data-tab="dashboard">
+          <span class="nav-icon">⊞</span>
+          <span class="nav-label">Dashboard</span>
+        </div>
+        <div class="nav-item" data-tab="templates">
+          <span class="nav-icon">📝</span>
+          <span class="nav-label">Templates</span>
+        </div>
+        <div class="nav-item" data-tab="automation">
+          <span class="nav-icon">⚡</span>
+          <span class="nav-label">Automation</span>
+        </div>
+        <div class="nav-item" data-tab="profile">
+          <span class="nav-icon">🏢</span>
+          <span class="nav-label">Business<br />Signature</span>
+        </div>
+        <div class="nav-item" data-tab="settings">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">Settings</span>
+        </div>
+        <div class="nav-item" data-tab="help">
+          <span class="nav-icon">❓</span>
+          <span class="nav-label">Help</span>
+        </div>
+      </div>
+
+      <!-- MAIN -->
+      <div class="main">
+        <!-- DASHBOARD -->
+        <div class="panel active" id="tab-dashboard">
+          <div class="dash-title">Dashboard</div>
+
+          <!-- Stats -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon blue">💬</div>
+              <div class="stat-num" id="stat-rules">0</div>
+              <div class="stat-lbl">Auto Replies</div>
+              <div class="stat-sub active" id="stat-active-label">Inactive</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon green">📋</div>
+              <div class="stat-num" id="stat-templates">0</div>
+              <div class="stat-lbl">Templates</div>
+              <div class="stat-sub total">Total</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon purple">👥</div>
+              <div class="stat-num" id="stat-sent">0</div>
+              <div class="stat-lbl">Messages Sent</div>
+              <div class="stat-sub today">Today</div>
+            </div>
+          </div>
+
+          <!-- Auto-Reply Toggle -->
+          <div class="toggle-card">
+            <div class="toggle-left">
+              <div class="tl-title">Auto-Reply</div>
+              <div class="tl-sub">Scan &amp; reply to messages</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="toggle" />
+              <span class="knob"></span>
+            </label>
+          </div>
+
+          <!-- Plan -->
+          <div class="plan-card" id="plan-card">
+            <div class="plan-left">
+              <span class="pl-badge" id="plan-badge">FREE</span>
+              <div class="pl-count" id="plan-count">0/10 today</div>
+              <div class="pl-label" id="plan-label">
+                Upgrade for unlimited replies
+              </div>
+            </div>
+            <button class="upgrade-btn" id="upgrade-btn">Upgrade ₦5,000</button>
+          </div>
+
+          <!-- Recent Activity -->
+          <div class="section-title">Recent Activity</div>
+          <div class="activity-list" id="activity-list">
+            <div class="no-activity">
+              No activity yet. Replies will appear here.
+            </div>
+          </div>
+        </div>
+
+        <!-- TEMPLATES -->
+        <div class="panel" id="tab-templates">
+          <div class="card">
+            <div class="card-title">Your Templates</div>
+            <div id="tpl-list">
+              <div class="empty">No templates yet. Add one below.</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Add New Template</div>
+            <label>Template Name</label>
+            <input type="text" id="tpl-name" placeholder="e.g. Welcome Reply" />
+            <label>Message Body</label>
+            <textarea
+              id="tpl-text"
+              placeholder="Hi {{name}}, thanks for reaching out! Our prices start from ₦5,000. How can we help?"
+            ></textarea>
+            <div class="hint">
+              Variables: {{name}} {{date}} {{time}} {{business}}
+            </div>
+            <button class="btn btn-primary" id="tpl-add-btn">
+              + Add Template
+            </button>
+          </div>
+        </div>
+
+        <!-- AUTOMATION / RULES -->
+        <div class="panel" id="tab-automation">
+          <div class="card">
+            <div class="card-title">Active Rules</div>
+            <div id="rule-list">
+              <div class="empty">No rules yet. Add one below.</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Add New Rule</div>
+            <label>Trigger Keyword</label>
+            <input
+              type="text"
+              id="rule-kw"
+              placeholder="e.g. hello, price, order"
+            />
+            <label>Match Type</label>
+            <select id="rule-match">
+              <option value="contains">Contains keyword</option>
+              <option value="exact">Exact match</option>
+              <option value="startsWith">Starts with</option>
+            </select>
+            <label>Reply with Template</label>
+            <select id="rule-tpl">
+              <option value="">-- Create a template first --</option>
+            </select>
+            <button class="btn btn-primary" id="rule-add-btn">
+              + Add Rule
+            </button>
+          </div>
+          <div class="info-box">
+            <strong>How it works:</strong> When someone sends a message matching
+            your keyword, ProReply automatically opens the chat and sends your
+            template reply. Keep WhatsApp Web open.
+          </div>
+        </div>
+
+        <!-- BUSINESS SIGNATURE / PROFILE -->
+        <div class="panel" id="tab-profile">
+          <div class="card">
+            <div class="card-title">Business Profile</div>
+            <label>Business Name</label>
+            <input
+              type="text"
+              id="biz-name"
+              placeholder="e.g. Delia's Boutique"
+            />
+            <label>Email</label>
+            <input
+              type="email"
+              id="biz-email"
+              placeholder="hello@yourbusiness.com"
+            />
+            <label>Phone</label>
+            <input type="tel" id="biz-phone" placeholder="+234 801 234 5678" />
+            <label>Custom Signature (optional)</label>
+            <textarea
+              id="biz-sig"
+              placeholder="Best regards,&#10;Delia's Boutique&#10;+234 801 234 5678"
+              style="min-height: 60px"
+            ></textarea>
+            <button class="btn btn-primary" id="profile-save-btn">
+              Save Profile
+            </button>
+          </div>
+          <div class="card">
+            <div class="card-title">Backup &amp; Restore</div>
+            <div class="btn-row">
+              <button class="btn btn-secondary" id="export-btn">
+                ⬇ Backup
+              </button>
+              <button class="btn btn-secondary" id="import-btn">
+                ⬆ Restore
+              </button>
+            </div>
+            <input
+              type="file"
+              id="import-file"
+              accept=".json"
+              style="display: none"
+            />
+          </div>
+        </div>
+
+        <!-- SETTINGS -->
+        <div class="panel" id="tab-settings">
+          <div class="card">
+            <div class="card-title">Reply Settings</div>
+            <label>Cooldown between replies (seconds)</label>
+            <input
+              type="text"
+              id="setting-cooldown"
+              placeholder="30"
+              value="30"
+            />
+            <div class="hint">
+              Minimum seconds before replying to the same chat again.
+            </div>
+            <label>Daily reply limit (FREE plan)</label>
+            <input
+              type="text"
+              id="setting-limit"
+              placeholder="10"
+              value="10"
+              readonly
+              style="background: #f3f4f6; color: #9ca3af"
+            />
+            <div class="hint">Upgrade to Pro for unlimited daily replies.</div>
+            <button class="btn btn-primary" id="settings-save-btn">
+              Save Settings
+            </button>
+          </div>
+          <div class="card">
+            <div class="card-title">Pro Activation</div>
+            <div
+              style="
+                font-size: 12px;
+                color: #6b7280;
+                margin-bottom: 8px;
+                line-height: 1.6;
+              "
+            >
+              Have an activation code? Enter it below to unlock unlimited
+              replies.
+            </div>
+            <button class="btn btn-primary" id="activate-pro-btn">
+              🔑 Enter Activation Code
+            </button>
+          </div>
+          <div class="card" style="background: #f0fdf4; border-color: #bbf7d0">
+            <div style="font-size: 11px; color: #166534; line-height: 1.7">
+              <strong>✅ Safe:</strong> ProReply only runs on WhatsApp Web and
+              never reads your messages content beyond keyword matching.<br />
+              <strong>🔒 Private:</strong> All data stays on your device.
+            </div>
+          </div>
+        </div>
+
+        <!-- HELP -->
+        <div class="panel" id="tab-help">
+          <div class="card">
+            <div class="card-title">Quick Start Guide</div>
+            <div style="font-size: 12px; color: #374151; line-height: 1.8">
+              <div style="margin-bottom: 8px">
+                <strong style="color: #2563eb">1.</strong> Go to
+                <strong>Templates</strong> and create a reply message.
+              </div>
+              <div style="margin-bottom: 8px">
+                <strong style="color: #2563eb">2.</strong> Go to
+                <strong>Automation</strong> and add a rule linking a keyword to
+                your template.
+              </div>
+              <div style="margin-bottom: 8px">
+                <strong style="color: #2563eb">3.</strong> On
+                <strong>Dashboard</strong>, turn the Auto-Reply toggle ON.
+              </div>
+              <div style="margin-bottom: 8px">
+                <strong style="color: #2563eb">4.</strong> Keep
+                <strong>WhatsApp Web open</strong> in Chrome. ProReply works in
+                the background.
+              </div>
+              <div>
+                <strong style="color: #2563eb">5.</strong> Watch the
+                <strong>Messages Sent</strong> counter go up! 🚀
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Variables You Can Use</div>
+            <div style="font-size: 12px; color: #374151; line-height: 1.9">
+              <code
+                style="
+                  background: #f3f4f6;
+                  padding: 1px 5px;
+                  border-radius: 4px;
+                "
+                >{{name}}</code
+              >
+              — Sender's name<br />
+              <code
+                style="
+                  background: #f3f4f6;
+                  padding: 1px 5px;
+                  border-radius: 4px;
+                "
+                >{{business}}</code
+              >
+              — Your business name<br />
+              <code
+                style="
+                  background: #f3f4f6;
+                  padding: 1px 5px;
+                  border-radius: 4px;
+                "
+                >{{date}}</code
+              >
+              — Today's date<br />
+              <code
+                style="
+                  background: #f3f4f6;
+                  padding: 1px 5px;
+                  border-radius: 4px;
+                "
+                >{{time}}</code
+              >
+              — Current time
+            </div>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-secondary" id="help-btn">
+              📖 Full Docs
+            </button>
+            <button class="btn btn-secondary" id="privacy-btn">
+              🔒 Privacy Policy
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- /main -->
+    </div>
+    <!-- /layout -->
+
+    <!-- FOOTER -->
+    <div class="ftr">
+      <a href="#" id="help-link">Help</a>
+      <span>•</span>
+      <a href="#" id="privacy-link">Privacy</a>
+      <span>•</span>
+      <span>ProReply v1.0.0</span>
+      <span>•</span>
+      <span>Safe · Smart · Professional</span>
+    </div>
+
+    <div id="toast"></div>
+    <script src="popup.js"></script>
+  </body>
+</html>
