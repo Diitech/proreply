@@ -5,7 +5,7 @@ export const SITE_CONTENT = {
     "Smart automation, templates, and business signatures inside WhatsApp Web.",
   ctas: {
     install: {
-      label: "Install Chrome Extension",
+      label: "Install Extension",
       href: "https://chrome.google.com/webstore/detail/proreply-placeholder"
     },
     viewFeatures: {
@@ -22,7 +22,9 @@ export const SITE_CONTENT = {
     { label: "How It Works", href: "#how-it-works" },
     { label: "Use Cases", href: "#use-cases" },
     { label: "Pricing", href: "#pricing" },
-    { label: "FAQ", href: "#faq" }
+    { label: "FAQ", href: "#faq" },
+    { label: "Privacy", href: "/privacy" },
+    { label: "Guide", href: "/guide" }
   ],
   features: [
     {
@@ -82,7 +84,7 @@ export const SITE_CONTENT = {
     },
     pro: {
       name: "Pro Plan",
-      price: "$15/month",
+      price: "$4/month",
       items: [
         "Unlimited templates",
         "Business signatures",
@@ -125,9 +127,14 @@ export const SITE_CONTENT = {
     }
   ],
   footer: {
-    supportEmail: "support@proreply.com",
-    privacyHref: "#",
-    termsHref: "#",
+    supportEmail: "support@dmultichoice.com",
+    privacyHref: "/privacy",
+    guideHref: "/guide",
     storeHref: "https://chrome.google.com/webstore/detail/proreply-placeholder"
+  },
+  contact: {
+    whatsappNumber: "2348000000000",
+    defaultMessage: "Hi, I would like to know more about ProReply.",
+    chatButtonLabel: "WhatsApp Chat"
   }
 };

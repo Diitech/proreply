@@ -1,29 +1,21 @@
+import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Features from "./components/Features";
-import HowItWorks from "./components/HowItWorks";
-import Demo from "./components/Demo";
-import UseCases from "./components/UseCases";
-import Pricing from "./components/Pricing";
-import Trust from "./components/Trust";
-import FAQ from "./components/FAQ";
-import LeadForm from "./components/LeadForm";
 import Footer from "./components/Footer";
+import HomePage from "./pages/HomePage";
+import PrivacyPage from "./pages/PrivacyPage";
+import GuidePage from "./pages/GuidePage";
 
 function App() {
   return (
     <>
       <Navbar />
       <main>
-        <Hero />
-        <Features />
-        <HowItWorks />
-        <Demo />
-        <UseCases />
-        <Pricing />
-        <Trust />
-        <FAQ />
-        <LeadForm />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/guide" element={<GuidePage />} />
+          <Route path="*" element={<HomePage />} />
+        </Routes>
       </main>
       <Footer />
     </>

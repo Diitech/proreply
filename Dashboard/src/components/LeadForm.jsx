@@ -25,9 +25,6 @@ function LeadForm() {
             <button type="submit" className="button">
               Join Waitlist
             </button>
-            <p className="form-note">
-              This form is UI-only in v1 and does not submit data yet.
-            </p>
           </form>
         </div>
       </div>
