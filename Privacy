@@ -1,0 +1,54 @@
+Privacy Policy
+Last updated: May 2026
+
+Short version: ProReply stores everything locally on your computer. We do not collect, sell, or share your WhatsApp messages, contacts, or business data. Your data is yours.
+What Data We Store
+All data is stored locally in your browser using chrome.storage.local. We never send your message content to our servers.
+
+Business Profile: Your business name, email, and phone number (used for signatures)
+Message Templates: The text content of templates you create
+Automation Rules: Keywords, match types, and template associations
+Usage Counters: Daily message count to enforce free plan limits
+Settings: Your preferences (notifications, auto-start, etc.)
+What We Do NOT Store
+Your WhatsApp messages or chat history
+Your contacts or contact list
+Photos, videos, or media from WhatsApp
+Your WhatsApp login credentials
+Any data from websites other than WhatsApp Web
+How Auto-Reply Works
+ProReply runs entirely in your browser:
+
+It reads incoming messages from the WhatsApp Web page you have open
+It checks if the message matches any of your rules
+If matched, it types and sends your template response automatically
+All processing happens on your computer — nothing is sent to external servers
+Payment Data (Pro Plan)
+When you upgrade to Pro, payment is handled by Flutterwave, a secure payment processor. We do not store your card details, bank information, or payment passwords.
+
+We only receive confirmation that payment was successful
+Your payment information is encrypted and processed by Flutterwave
+We store only your plan status ("pro" or "free") and expiry date locally
+Data Export & Import
+The Backup Data feature creates a JSON file on your computer containing your templates, rules, and settings. This file:
+
+Never leaves your computer unless you manually share it
+Does not include your Pro plan status (for security)
+Can be deleted by you at any time
+Cookies & Tracking
+ProReply does not use cookies, analytics, or tracking pixels. We do not know how many messages you send, who you talk to, or what your templates say.
+
+Third-Party Services
+We only connect to:
+
+Flutterwave — for payment processing (only when you click "Pay with Flutterwave")
+WhatsApp Web — to read and send messages (only when you have the tab open)
+Your Rights
+You can:
+
+Delete all data instantly using the Clear All Data button in Settings
+Uninstall the extension at any time — all data is automatically removed
+Export your data before uninstalling using the Backup feature
+Contact us with privacy questions (see Chrome Web Store listing)
+Changes to This Policy
+If we make changes to this privacy policy, we will update this page and notify you through the extension. We will never reduce your privacy rights without clear notice.
